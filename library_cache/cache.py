@@ -41,6 +41,7 @@ def get_game_details(app_id):
     else:
         return 'details not found'
     
+# TODO: fix sending an empty set when cache is first build
 def build_cache():
     print("starting app")
     (cached_game_ids, cached_games) = get_cache()
