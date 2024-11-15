@@ -8,7 +8,7 @@ def main():
     ctk.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
     app = ctk.CTk()  # create CTk window like you do with the Tk window
-    app_geometry = (800, 480)
+    app_geometry = (800, 1200)
     (app_x_res, app_y_res) = app_geometry
     app.geometry(f"{app_x_res}x{app_y_res}")
 

@@ -6,7 +6,7 @@ def get_cache():
     cached_game_ids: set[str] = set()
     cached_games = []
     file_data =[]
-    
+
     try:
         print("reading cache")
         with open('game_data.json', 'r') as fp:
@@ -15,7 +15,6 @@ def get_cache():
         print("no cache, creating")
         with open('game_data.json', 'w') as fp:
             json.dump([], fp)
-        return get_cache()
 
     if type(file_data) == list:
         print(f"list is good")
@@ -41,7 +40,6 @@ def get_game_details(app_id):
     else:
         return 'details not found'
     
-# TODO: fix sending an empty set when cache is first build
 def build_cache(library_location):
     print("starting app")
     (cached_game_ids, cached_games) = get_cache()
@@ -51,21 +49,28 @@ def build_cache(library_location):
     library_dict = vdf.load(open(library_location))["libraryfolders"]["0"]["apps"]
     library_game_ids = set([key for key in library_dict.keys()])
 
+    ids_removed_since_last_cache = cached_game_ids - library_game_ids
+    print("ids_removed_since_last_cache: ", ids_removed_since_last_cache)
     not_cached_ids = library_game_ids - cached_game_ids
     print(f"cached: {cached_game_ids}")
     print(f"not cached: {not_cached_ids}")
-    games_to_cache = []
+    new_cache_ids = set()
+    new_cache = []
     for game in not_cached_ids:
         print(f"fetching {game}")
         response_data = game
         response_data = get_game_details(game)
         game_to_cache = str(game) if type(response_data) == str else response_data
-        games_to_cache.append(game_to_cache)
-    
-    new_cache = cached_games.copy()
-    for game in games_to_cache:
-        new_cache.append(game)
+        new_cache.append(game_to_cache)
+        cached_game_ids.add(game)
+        new_cache_ids.add(game)
+
+    for game in cached_games:
+        game_id = game.get("steam_appid")
+        if str(game_id) not in ids_removed_since_last_cache:
+            new_cache.append(game)
+            new_cache_ids.add(str(game_id))
 
     with open('game_data.json', 'w') as fp:
         json.dump(new_cache, fp)
-    return (cached_game_ids, new_cache)
+    return (new_cache_ids, new_cache)
