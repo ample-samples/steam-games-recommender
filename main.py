@@ -39,6 +39,7 @@ def main():
             simple_cache.append(game_attributes)
             
     except FileNotFoundError:
+        # TODO: allow user to enter the path for their libraryfolders.vdf and save this to a settings.json
         warning_label = ctk.CTkLabel(scrollable_frame, text="libraryfolders.vdf not found, please set it with the button above\ndefault path: C:\Steam\steamapps\libraryfolders.vdf")
         warning_label.grid(row=0, column=0)
 
