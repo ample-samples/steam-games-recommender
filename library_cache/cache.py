@@ -5,22 +5,22 @@ import requests
 def get_cache():
     cached_game_ids: set[str] = set()
     cached_games = []
-    data =[]
+    file_data =[]
     
     try:
         print("reading cache")
-        with open('data.json', 'r') as fp:
-            data = json.load(fp)
+        with open('game_data.json', 'r') as fp:
+            file_data = json.load(fp)
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print("no cache, creating")
-        with open('data.json', 'w') as fp:
+        with open('game_data.json', 'w') as fp:
             json.dump([], fp)
         return get_cache()
 
-    if type(data) == list:
+    if type(file_data) == list:
         print(f"list is good")
-        print(f"length list: {len(data)}")
-        for game in data:
+        print(f"length list: {len(file_data)}")
+        for game in file_data:
             print(repr(game)[:15])
             if type(game) == dict and "steam_appid" in game.keys():
                 print(f"adding game: {game["steam_appid"]}")
@@ -66,6 +66,6 @@ def build_cache(library_location):
     for game in games_to_cache:
         new_cache.append(game)
 
-    with open('data.json', 'w') as fp:
+    with open('game_data.json', 'w') as fp:
         json.dump(new_cache, fp)
     return (cached_game_ids, new_cache)

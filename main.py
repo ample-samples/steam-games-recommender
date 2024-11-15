@@ -24,8 +24,8 @@ def main():
     simple_cache = []
     (cached_game_ids, library_cache) = ([], [])
     try:
-        (cached_game_ids, library_cache) = build_cache("")
-        # (cached_game_ids, library_cache) = build_cache("C:\\Steam\\steamapps\\libraryfolders.vdf")
+        # (cached_game_ids, library_cache) = build_cache("")
+        (cached_game_ids, library_cache) = build_cache("C:\\Steam\\steamapps\\libraryfolders.vdf")
         print(cached_game_ids)
 
         for game in library_cache:
