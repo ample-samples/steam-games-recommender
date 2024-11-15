@@ -16,17 +16,14 @@ def get_cache():
         with open('game_data.json', 'w') as fp:
             json.dump([], fp)
 
-    if type(file_data) == list:
-        print(f"list is good")
-        print(f"length list: {len(file_data)}")
-        for game in file_data:
-            print(repr(game)[:15])
-            if type(game) == dict and "steam_appid" in game.keys():
-                print(f"adding game: {game["steam_appid"]}")
-                cached_games.append(game)
-                cached_game_ids.add(str(game["steam_appid"]))
-            else:
-                cached_game_ids.add(game)
+    for game in file_data:
+        print(repr(game)[:15])
+        if type(game) == dict and "steam_appid" in game.keys():
+            print(f"adding game: {game["steam_appid"]}")
+            cached_games.append(game)
+            cached_game_ids.add(str(game["steam_appid"]))
+        else:
+            cached_game_ids.add(game)
     return (cached_game_ids, cached_games)
 
 def get_game_details(app_id):
