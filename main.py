@@ -35,7 +35,6 @@ def main():
     # display simple cache
     
     try:
-        # (cached_game_ids, library_cache) = build_cache("")
         (cached_game_ids, library_cache) = build_cache(settings["libraryfoldersPath"])
         print(cached_game_ids)
         simple_cache = build_simple_cache(library_cache)
