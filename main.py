@@ -2,7 +2,7 @@ import json
 import customtkinter as ctk
 from custom_utils.get_image_from_url import get_image_from_url
 from library_cache.cache import build_cache
-from custom_widgets.widgets import Top_Bar
+from custom_widgets.widgets import Top_Bar, Game_Card
 
 def main():
     settings = json.load(open("settings.json"))
@@ -47,10 +47,6 @@ def main():
 
     Top_Bar(app, "Text 1", "Button 1").grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
 
-    text_box = ctk.CTkTextbox(app, app_x_res, app_y_res)
-    text_box.insert("0.0" , ",\n".join(cached_game_ids))
-    text_box.configure(state="disabled")
-
     display_simple_cache(scrollable_frame, simple_cache)
     
     app.mainloop()
@@ -73,9 +69,10 @@ def build_simple_cache(library_cache):
 def display_simple_cache(master, simple_cache):
     for index, simple_game in enumerate(simple_cache):
         print(repr(simple_game))
-        ( tk_image, img_width, img_height ) = get_image_from_url(simple_game["header_image"])
+        game_image = ( tk_image, img_width, img_height ) = get_image_from_url(simple_game["header_image"])
         master.panel = ctk.CTkLabel(master, image = tk_image, text="", width=img_width, height=img_height)
-        master.panel.grid(row=index, column=0, padx=0, pady=5)
+        # master.panel.grid(row=index, column=0, padx=0, pady=5)
+        master.game_card = Game_Card(master, game_image, simple_game["name"]).grid(row=index, column=0, padx=0, pady=5, sticky="ew")
     
     
 if __name__ == "__main__":
