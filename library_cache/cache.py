@@ -42,13 +42,12 @@ def get_game_details(app_id):
         return 'details not found'
     
 # TODO: fix sending an empty set when cache is first build
-def build_cache():
+def build_cache(library_location):
     print("starting app")
     (cached_game_ids, cached_games) = get_cache()
     print("cache read")
     print("cached_games:", repr(cached_games)[:50] + "...")
 
-    library_location = "C:\\Steam\\steamapps\\libraryfolders.vdf"
     library_dict = vdf.load(open(library_location))["libraryfolders"]["0"]["apps"]
     library_game_ids = set([key for key in library_dict.keys()])
 
