@@ -1,17 +1,20 @@
 import json
 import customtkinter as ctk
-from custom_utils.get_image_from_url import get_image_from_url
+from custom_utils.utils import get_image_from_url, generate_settings_json
 from library_cache.cache import build_cache
 from custom_widgets.widgets import Top_Bar, Game_Card
 
 def main():
-    settings = json.load(open("settings.json"))
+    try:
+        json.load(open("settings.json"))
+    except FileNotFoundError:
+        generate_settings_json()
 
     ctk.set_appearance_mode("System")  # Modes: system (default), light, dark
     ctk.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
     app = ctk.CTk()  # create CTk window like you do with the Tk window
-    app_geometry = (1200, 1200)
+    app_geometry = (800, 800)
     (app_x_res, app_y_res) = app_geometry
     app.geometry(f"{app_x_res}x{app_y_res}")
 
@@ -35,11 +38,14 @@ def main():
     
     try:
         # user id can be found here c:\Steam\config\loginusers.vdf
-        cached_game_ids, library_cache, simple_cache = build_and_display_cache(settings)
+        cached_game_ids, library_cache, simple_cache = build_and_display_cache(json.load(open("settings.json")))
 
     except (FileNotFoundError, KeyError):
         # TODO: allow user to enter the path for their libraryfolders.vdf and save this to a settings.json
-        warning_label = ctk.CTkLabel(scrollable_frame, anchor="w", justify=ctk.LEFT, text="A valid libraryfolders.vdf has not found, please set it with the button above\nDefault path: C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf")
+        warning_label = ctk.CTkLabel(scrollable_frame, anchor="w", justify=ctk.LEFT, text="A valid libraryfolders.vdf has not found, please set it with the button above\nDefault path: C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf\nPlease restart the application after saving the path")
+        warning_label.grid(row=0, column=0)
+    if len(cached_game_ids) == 0:
+        warning_label = ctk.CTkLabel(scrollable_frame, anchor="w", justify=ctk.LEFT, text="No games have been found in libraryfolders.vdf, are you sure it's been set correctly using the button above?\nDefault path: C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf\nPlease restart the application after saving the path")
         warning_label.grid(row=0, column=0)
 
 

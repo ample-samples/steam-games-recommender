@@ -4,11 +4,9 @@ import os
 import customtkinter as ctk
 
 class Top_Bar(ctk.CTkFrame):
-    settings: dict
     def __init__(self, parent, build_and_display_cache):
         super().__init__(master = parent)
         self.build_and_display_cache = build_and_display_cache
-        self.settings = json.load(open("settings.json"))
         
         # set up grid layout
         self.grid_rowconfigure(0, weight=1)
@@ -31,7 +29,7 @@ class Top_Bar(ctk.CTkFrame):
         
     def save_path_and_display_games(self, new_path):
         self.save_libraryfolders_path_to_settings(new_path)
-        self.build_and_display_cache(self.settings)
+        self.build_and_display_cache(json.load(open("settings.json")))
     
     def save_libraryfolders_path_to_settings(self, new_path: str):
         if not os.path.exists(new_path):
@@ -52,8 +50,8 @@ class Game_Card(ctk.CTkFrame):
         # self.configure(bg_color="blue")
 
         ( image_data, img_width, img_height ) = image
-        image_card = ctk.CTkLabel(self, image = image_data, text="", width=img_width, height=img_height)
+        image_card = ctk.CTkLabel(self, image = image_data, text="")
         image_card.grid(row=0, column=0, pady=(0,0), sticky="w")
 
-        name_label = ctk.CTkLabel(self, text=game_name, font=ctk.CTkFont(family="",size=32))
+        name_label = ctk.CTkLabel(self, text=game_name, font=ctk.CTkFont(family="",size=26))
         name_label.grid(row=0, column=1, padx=(30,0))
