@@ -4,10 +4,10 @@ from PIL import Image
 import requests
 
 def get_image_from_url(url):
-    example_image_response =  requests.get(url)
-    print(f"{url}\n{example_image_response.status_code}")
-    example_image = Image.open(BytesIO(example_image_response.content))
+    image_response =  requests.get(url)
+    image = Image.open(BytesIO(image_response.content))
+    print(f"fetched {url} | res:{image_response.status_code}")
 
-    tk_image = customtkinter.CTkImage(example_image, size=(example_image.width, example_image.height))
-    (width, height) = (example_image.width, example_image.height)
+    tk_image = customtkinter.CTkImage(image, size=(image.width, image.height))
+    (width, height) = (image.width, image.height)
     return (tk_image, width, height)
