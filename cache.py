@@ -76,12 +76,13 @@ def build_cache(library_location):
         json.dump(new_cache, fp)
     return (new_cache_ids, new_cache)
 
-def get_combined_cache_and_simple_cache(settings, simple_cache_sort_function=itemgetter("name")):
+def xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx(settings, simple_cache_sort_function=lambda game: game["name"].lower()):
     (cached_game_ids, library_cache) = build_cache(settings["libraryfoldersPath"])
-    simple_cache = build_simple_cache(library_cache, simple_cache_sort_function)
+    simple_cache = build_simple_cache(library_cache)
+    simple_cache = sorted(simple_cache, key=simple_cache_sort_function)
     return (cached_game_ids, library_cache, simple_cache)
 
-def build_simple_cache(library_cache, sort_function=None):
+def build_simple_cache(library_cache):
     simple_cache = []
     for game in library_cache:
         # TODO: ensure games from cache are validated (are dicts, contain `steam_appid` and more?) in `build_cache` instead of other places
@@ -94,5 +95,4 @@ def build_simple_cache(library_cache, sort_function=None):
         if "not found" in game_attributes.values():
             continue
         simple_cache.append(game_attributes)
-    simple_cache = sorted(simple_cache, key=sort_function)
     return simple_cache

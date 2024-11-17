@@ -1,6 +1,7 @@
 __pycache__
 .vscode/
 .env
+.env.temp
 build/
 dist/
 game_data.json

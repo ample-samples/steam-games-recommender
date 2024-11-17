@@ -1,15 +1,11 @@
 import json
 import customtkinter as ctk
-from utils import generate_settings_json
+from utils import create_missing_files
 from cache import get_combined_cache_and_simple_cache
 from widgets import Top_Bar
 
 def main():
-    try:
-        json.load(open("settings.json"))
-    except FileNotFoundError:
-        generate_settings_json()
-
+    create_missing_files()
     ctk.set_appearance_mode("System")
     ctk.set_default_color_theme("blue")
 
