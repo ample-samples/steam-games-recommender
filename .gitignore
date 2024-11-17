@@ -1,8 +1,9 @@
 __pycache__
 .vscode/
-game_data.json
+.env
 build/
 dist/
+game_data.json
 main.spec
 settings.json
 settings2.json
