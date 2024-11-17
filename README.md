@@ -13,7 +13,7 @@ This project was created becuase I never know what game to play. Its aim is to s
     - Rating
     - Individual playtime
 - Cross platform
-- Theme follows system theme
+- Application theme follows system theme (light/dark mode)
 
 ## Run Locally
 
