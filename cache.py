@@ -74,3 +74,23 @@ def build_cache(library_location):
     with open('game_data.json', 'w') as fp:
         json.dump(new_cache, fp)
     return (new_cache_ids, new_cache)
+
+def get_combined_cache_and_simple_cache(settings):
+    (cached_game_ids, library_cache) = build_cache(settings["libraryfoldersPath"])
+    simple_cache = build_simple_cache(library_cache)
+    return (cached_game_ids, library_cache, simple_cache)
+    
+def build_simple_cache(library_cache):
+    simple_cache = []
+    for game in library_cache:
+        # TODO: ensure games from cache are validated (are dicts, contain `steam_appid` and more?) in `build_cache` instead of other places
+        if type(game) != dict:
+            continue
+        name = game.get("name", "not found")
+        steam_appid = game.get("steam_appid", "not found")
+        game_attributes = { "name": name, "steam_appid": steam_appid, "header_image": game.get("header_image", "not found")}
+        print(repr(game_attributes))
+        if "not found" in game_attributes.values():
+            continue
+        simple_cache.append(game_attributes)
+    return simple_cache

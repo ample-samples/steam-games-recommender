@@ -41,6 +41,4 @@ Go to the project directory and run the main file
 
 Find your libraryfolders.vdf inside of your file manager, this is usually located at `C:\Program Files (x86)\Steam\steamapps\libraryfolders.vdf` for Windows users unless you have chosen a different installation path for Steam.
 
-Once you have found the file, right-click on it and press "copy" to copy its path to your clipboard. You should paste this path into the entry field in the top left of the program and press save. 
-
-Lastly, restart the application and you will see the list of your games and you're ready to use SGR, happy gaming!
+Once you have found the file, right-click on it and press "copy" to copy its path to your clipboard. You should paste this path into the entry field in the top left of the program and press save. Give the application a few seconds to find the data for your games (for the first load, this can take a many seconds if you have a lot of games). Afterwards, you will see the list of your games and you're ready to use SGR, happy gaming!
