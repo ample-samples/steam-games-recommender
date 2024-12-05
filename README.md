@@ -23,7 +23,7 @@ Note: For future stable releases, executable binaries (.exe files etc.) will be 
 
 Install dependencies with pip (requires Python 3)
 ```
-  pip install customtkinter vdf
+  pip install customtkinter vdf python-dotenv
 ``` 
 
 Clone the project

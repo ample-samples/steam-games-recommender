@@ -4,6 +4,7 @@ import os
 import customtkinter as ctk
 from utils import get_image_from_url
 from cache import get_combined_cache_and_simple_cache
+import dotenv
 
 class Game_Card(ctk.CTkFrame):
     def __init__(self, parent, image, game_name):

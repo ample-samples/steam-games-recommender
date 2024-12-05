@@ -3,6 +3,7 @@ import vdf
 import requests
 import os
 from operator import itemgetter
+import dotenv
 
 def get_cache():
     cached_game_ids: set[str] = set()
@@ -120,9 +121,13 @@ def get_user(loginusers_location):
         # TODO: add support for multiple users, each 
         most_recent_user_id = loginusers_dict.keys()[0]
         
+    
     most_recent_user = (most_recent_user_id, "account_name")
+    dotenv.set_key(".env", "USERID", most_recent_user[0])
     return most_recent_user
 
-def get_playtimes(api_key, user_id):
-    response = {}
+def get_playtimes(api_key=dotenv.get_key(".env", "STEAM_API_KEY"), user_id=dotenv.get_key(".env", "USERID")):
+    request = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key={api_key}&steamid={user_id}&include_appinfo=true&format=json"
+    response = requests.get(request)
+    print(response.json())
     pass
