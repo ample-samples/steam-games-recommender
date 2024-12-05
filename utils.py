@@ -14,7 +14,6 @@ def get_image_from_url(url):
     (width, height) = (image.width, image.height)
     return (tk_image, width, height)
 
-
 def generate_settings_json():
     default_settings = {
         "defaultLibraryfoldersPath": "C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf",

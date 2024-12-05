@@ -10,8 +10,7 @@ def main():
     ctk.set_default_color_theme("blue")
 
     app = ctk.CTk()
-    app_geometry = (800, 800)
-    (app_x_res, app_y_res) = app_geometry
+    (app_x_res, app_y_res) = (800, 800)
     app.geometry(f"{app_x_res}x{app_y_res}")
 
     scrollable_frame = ctk.CTkScrollableFrame(master=app, width=app_x_res, height=app_y_res)
