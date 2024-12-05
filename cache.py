@@ -94,3 +94,35 @@ def build_simple_cache(library_cache):
             continue
         simple_cache.append(game_attributes)
     return simple_cache
+
+def get_user(loginusers_location):
+    # user id can be found here c:\Steam\config\loginusers.vdf
+    file_data =[]
+    if not os.path.exists(loginusers_location):
+        print(f"{loginusers_location} doesn't exist")
+        return (set(),[])
+
+    try:
+        print("reading time cache")
+        with open('game_time_data.json', 'r') as fp:
+            file_data = json.load(fp)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print("no time cache, creating")
+        with open('game_time_data.json', 'w') as fp:
+            json.dump([], fp)
+    loginusers_dict = vdf.load(open(loginusers_location))["users"]
+    most_recent_user_id = None
+    if len(loginusers_dict.keys()) == 1:
+        print(type(loginusers_dict))
+        print(loginusers_dict)
+        most_recent_user_id = list(loginusers_dict.keys())[0]
+    else:
+        # TODO: add support for multiple users, each 
+        most_recent_user_id = loginusers_dict.keys()[0]
+        
+    most_recent_user = (most_recent_user_id, "account_name")
+    return most_recent_user
+
+def get_playtimes(api_key, user_id):
+    response = {}
+    pass

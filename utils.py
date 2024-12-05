@@ -17,11 +17,14 @@ def get_image_from_url(url):
 def generate_settings_json():
     default_settings = {
         "defaultLibraryfoldersPath": "C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf",
-        "libraryfoldersPath": "C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf"
+        "defaultSteamPath": "C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf",
+        "libraryfoldersPath": "C:\\Steam\\steamapps\\libraryfolders.vdf",
+        "steamPath": "C:\\Steam",
+        "loginUsersPath": "C:\\Steam\\config\\loginusers.vdf"
     }
     with open("settings.json", "w") as settings_json:
         json.dump(default_settings, settings_json)
-    
+
 def generate_env():
     env_template = """STEAM_API_KEY=
 STEAM_API_DOMAIN_NAME="""

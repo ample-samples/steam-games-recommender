@@ -1,7 +1,7 @@
 import json
 import customtkinter as ctk
 from utils import create_missing_files
-from cache import get_combined_cache_and_simple_cache
+from cache import get_combined_cache_and_simple_cache, get_user
 from widgets import Top_Bar
 
 def main():
@@ -23,7 +23,6 @@ def main():
     (cached_game_ids, library_cache) = ([], [])
     
     try:
-        # user id can be found here c:\Steam\config\loginusers.vdf
         cached_game_ids, library_cache, simple_cache = get_combined_cache_and_simple_cache(json.load(open("settings.json")))
 
     except (FileNotFoundError, KeyError):
@@ -37,6 +36,7 @@ def main():
 
     top_bar = Top_Bar(app, get_combined_cache_and_simple_cache, scrollable_frame)
     top_bar.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+    print(get_user("c:\\Steam\\config\\loginusers.vdf"))
 
     game_card_list = top_bar.display_games_with_simple_cache(simple_cache)
     
